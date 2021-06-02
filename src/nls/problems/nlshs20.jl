@@ -142,14 +142,14 @@ end
 function NLPModels.hess(nls :: NLSHS20, x :: AbstractVector{T}; obj_weight=1.0) where T
   @lencheck 2 x
   increment!(nls, :neval_hess)
-  return obj_weight * [T(1)-200*x[2]+600*x[1]^2 T(0);-200*x[1] T(100)]
+  return obj_weight * [T(1)-200*x[2]+600*x[1]^2 -200*x[1];-200*x[1] T(100)]
 end
 
 function NLPModels.hess(nls :: NLSHS20, x :: AbstractVector{T}, y :: AbstractVector{T}; obj_weight=1.0) where T
   @lencheck 2 x
   @lencheck 3 y
   increment!(nls, :neval_hess)
-  return [obj_weight*(T(1)-200*x[2]+600*x[1]^2)+2*y[2]+2*y[3] T(0);-obj_weight*200*x[1] obj_weight*T(100)+2*y[1]+2*y[3]]
+  return [obj_weight*(T(1)-200*x[2]+600*x[1]^2)+2*y[2]+2*y[3] -obj_weight*200*x[1];-obj_weight*200*x[1] obj_weight*T(100)+2*y[1]+2*y[3]]
 end
 
 function NLPModels.hess_structure!(nls :: NLSHS20, rows :: AbstractVector{Int}, cols :: AbstractVector{Int})

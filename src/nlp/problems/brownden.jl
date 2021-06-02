@@ -62,7 +62,7 @@ function NLPModels.hess(nlp :: BROWNDEN, x :: AbstractVector{T}; obj_weight=1.0)
     θi = αi^2 + βi^2
     Hx += (4vi * vi' + 4wi * wi') * θi + 8zi * zi'
   end
-  return T(obj_weight) * tril(Hx)
+  return T(obj_weight) * Hx
 end
 
 function NLPModels.hess_structure!(nlp :: BROWNDEN, rows :: AbstractVector{Int}, cols :: AbstractVector{Int})
